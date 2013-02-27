@@ -1,6 +1,6 @@
 ;;;;       lpy's .emacs file
-;      Name: Peiyong Lin
-;   Created: 1 January 2012
+                                        ;      Name: Peiyong Lin
+                                        ;   Created: 1 January 2012
 
 
 ;;;;auto-to-list
@@ -42,7 +42,6 @@
 (tool-bar-mode nil)
 ;;;;去掉滚动条
 (put 'scroll-left 'disabled nil)
-(scroll-bar-mode nil)
 ;;;;光标靠近鼠标指针时，鼠标指针自动让开  
 (mouse-avoidance-mode 'animate)
 ;;;;打开图片显示功能
@@ -80,12 +79,12 @@
 
 ;;;;redefine[C-k] to kill the current line wherever the cursor it is
 (defun kill-current-line ()
- "To kill the current line"
- (interactive)
- (move-beginning-of-line ())
- (kill-line ())
- ;;(previous-line)
- (indent-according-to-mode))
+  "To kill the current line"
+  (interactive)
+  (move-beginning-of-line ())
+  (kill-line ())
+  ;;(previous-line)
+  (indent-according-to-mode))
 (global-set-key (kbd "C-k") 'kill-current-line)
 
 ;;;;重新定义[C-j]实现不需要移动就新建一行
@@ -116,7 +115,7 @@
              ;;;really at eol, keep going.
               (setq arg 1)
             (setq done t))))))
-;;  (newline-and-indent))
+  ;;  (newline-and-indent))
   (newline)
   (indent-according-to-mode))
 
@@ -139,64 +138,64 @@
 
 
 ;;;;C-mode的缩进(test)
-    (setq default-tab-width 4)
-    (setq tab-width 4)
-    (setq tab-stop-list ())
-    (setq c-basic-offset 4)
-    (setq-default indent-tabs-mode nil)
-    (loop for x downfrom 40 to 1 do
-          (setq tab-stop-list (cons (* x 2) tab-stop-list)))
+(setq default-tab-width 4)
+(setq tab-width 4)
+(setq tab-stop-list ())
+(setq c-basic-offset 4)
+(setq-default indent-tabs-mode nil)
+(loop for x downfrom 40 to 1 do
+      (setq tab-stop-list (cons (* x 2) tab-stop-list)))
 
- (defconst lpy-Cprogramming-style
-   '((c-tab-always-indent        . t)
-	 (c-comment-only-line-offset . 2)
-	 (c-hanging-braces-alist     . ((substatement-open after)
-									(brace-list-open)))
-	 (c-hanging-colons-alist     . ((member-init-intro before)
-									(inher-intro)
-									(case-label after)
-									(label after)
-p									(access-label after)))
-	 (c-cleanup-list             . (scope-operator
-									empty-defun-braces
-									defun-close-semi))
-	 (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
-									(substatement-open . 0)
-									(case-label        . 4)
-									(block-open        . 0)
-									(knr-argdecl-intro . -)))
-	 (c-echo-syntactic-information-p . t)
-	 )
-   "lpy's C Programming Style")
+(defconst lpy-Cprogramming-style
+  '((c-tab-always-indent        . t)
+    (c-comment-only-line-offset . 2)
+    (c-hanging-braces-alist     . ((substatement-open after)
+                                   (brace-list-open)))
+    (c-hanging-colons-alist     . ((member-init-intro before)
+                                   (inher-intro)
+                                   (case-label after)
+                                   (label after)
+                                   p									(access-label after)))
+    (c-cleanup-list             . (scope-operator
+                                   empty-defun-braces
+                                   defun-close-semi))
+    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
+                                   (substatement-open . 0)
+                                   (case-label        . 4)
+                                   (block-open        . 0)
+                                   (knr-argdecl-intro . -)))
+    (c-echo-syntactic-information-p . t)
+    )
+  "lpy's C Programming Style")
 
- ;; offset customizations not in lpy-Cprogramming-style
- (setq c-offsets-alist '((member-init-intro . ++)))
+;; offset customizations not in lpy-Cprogramming-style
+(setq c-offsets-alist '((member-init-intro . ++)))
 
  ;;;;Customizations for all modes in CC Mode.
-	(defun my-c-mode-common-hook ()
-	  ;; add my personal style and set it for the current buffer
-	  (c-add-style "PERSONAL" lpy-Cprogramming-style t)
-	  ;; other customizations
-	  (setq tab-width 2
-			;; this will make sure spaces are used instead of tabs
-			indent-tabs-mode nil)
-	  ;; we like auto-newline and hungry-delete
-	  ;;(c-toggle-auto-hungry-state 1)
-	  ;; key bindings for all supported languages.  We can put these in
-	  ;; c-mode-base-map because c-mode-map, c++-mode-map, objc-mode-map,
-	  ;; java-mode-map, idl-mode-map, and pike-mode-map inherit from it.
-	  ;;(define-key c-mode-base-map "/C-m" 'c-context-line-break)
-        (define-key c-mode-base-map [(return)] 'newline-and-indent)
-        ;;(c-toggle-auto-hungry-state 1)
-        ;;(define-key c-mode-base-map [(control \`)] 'hs-toggle-hiding)
-	)
+(defun my-c-mode-common-hook ()
+  ;; add my personal style and set it for the current buffer
+  (c-add-style "PERSONAL" lpy-Cprogramming-style t)
+  ;; other customizations
+  (setq tab-width 2
+        ;; this will make sure spaces are used instead of tabs
+        indent-tabs-mode nil)
+  ;; we like auto-newline and hungry-delete
+  ;;(c-toggle-auto-hungry-state 1)
+  ;; key bindings for all supported languages.  We can put these in
+  ;; c-mode-base-map because c-mode-map, c++-mode-map, objc-mode-map,
+  ;; java-mode-map, idl-mode-map, and pike-mode-map inherit from it.
+  ;;(define-key c-mode-base-map "/C-m" 'c-context-line-break)
+  (define-key c-mode-base-map [(return)] 'newline-and-indent)
+  ;;(c-toggle-auto-hungry-state 1)
+  ;;(define-key c-mode-base-map [(control \`)] 'hs-toggle-hiding)
+  )
 (defun my-c++-common-hook ()
   (setq tab-width 4
         indent-tabs-mode nil)
   (setq c-hanging-braces-alist 
-	(cons'
-   (brace-list-close)
-   c-hanging-braces-alist)))
+        (cons'
+         (brace-list-close)
+         c-hanging-braces-alist)))
 
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 ;;(add-hook 'c-mode-common-hook 'my-c-mode-auto-pair)
@@ -294,13 +293,13 @@ p									(access-label after)))
   (interactive
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
-	   (line-beginning-position 2)))))
+           (line-beginning-position 2)))))
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
 
 ;; comment-or-uncomment-region-or-line
 ;; it's almost the same as in textmate.el but I wrote it before I know about
 ;; textmate.el, in fact that's how I found textmate.el, by googling this
-					; function to see if somebody already did that in a better way than me.
+                                        ; function to see if somebody already did that in a better way than me.
 
 
 
@@ -327,63 +326,66 @@ p									(access-label after)))
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/plugins/auto-complete-1.3.1/dict")
 (require 'auto-complete-yasnippet)
 (require 'auto-complete-clang)
+(require 'yasnippet)
 (setq ac-clang-flags
-      (mapcar (lambda (item)(concat "-I" item))
+      (mapcar (lambda (item) (concat "-I" item))
               (split-string
                "
- /usr/lib/gcc/i686-pc-linux-gnu/4.7.0/../../../../include/c++/4.7.0
- /usr/lib/gcc/i686-pc-linux-gnu/4.7.0/../../../../include/c++/4.7.0/i686-pc-linux-gnu
- /usr/lib/gcc/i686-pc-linux-gnu/4.7.0/../../../../include/c++/4.7.0/backward
- /usr/lib/gcc/i686-pc-linux-gnu/4.7.0/include
+ /usr/lib/gcc/i686-pc-linux-gnu/4.7.2/../../../../include/c++/4.7.2
+ /usr/lib/gcc/i686-pc-linux-gnu/4.7.2/../../../../include/c++/4.7.2/i686-pc-linux-gnu
+ /usr/lib/gcc/i686-pc-linux-gnu/4.7.2/../../../../include/c++/4.7.2/backward
+ /usr/lib/gcc/i686-pc-linux-gnu/4.7.2/include
  /usr/local/include
- /usr/lib/gcc/i686-pc-linux-gnu/4.7.0/include-fixed
+ /usr/lib/gcc/i686-pc-linux-gnu/4.7.2/include-fixed
  /usr/include
 "
                )))
 (setq ac-modes
       (append ac-modes '(org-mode objc-mode jde-mode sql-mode
+                                  js2-mode
                                   change-log-mode text-mode
                                   lisp-mode
                                   makefile-gmake-mode makefile-bsdmake-mo
                                   autoconf-mode makefile-automake-mode c-mode c++-mode)))
+(setq ac-auto-start 2)
 (setq ac-quick-help-delay 0.2)
- ;;(ac-config-default)
- ;;(require 'auto-complete+)
- ;;(add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
- ;;(require 'auto-complete-extension)
- ;;(require 'auto-complete-c)
- (require 'yasnippet)
- (yas/global-mode 1)
- ;(yas/initialize)
- ;(yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
+;;(ac-config-default)
+;;(require 'auto-complete+)
+;;(add-hook 'emacs-lisp-mode-hook 'ac+-apply-source-elisp-faces)
+;;(require 'auto-complete-extension)
+;;(require 'auto-complete-c)
+(yas/global-mode 1)
+                                        ;(yas/initialize)
+                                        ;(yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 
 (setq clang-completion-suppress-error 't)
 
 (defun my-c-ac-mode-common-hook()
-  (setq ac-auto-start nil)
-  (setq ac-expand-on-auto-complete nil)
+  (setq ac-auto-start 2)
+  ;;(setq ac-expand-on-auto-complete nil)
   (setq ac-quick-help-delay 0.2)
-  (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang)
-)
+  (define-key c-mode-base-map (kbd "M-/") 'ac-complete-clang))
 
 (add-hook 'c-mode-common-hook 'my-c-ac-mode-common-hook)
+(add-hook 'c++-mode-hook 'my-c-ac-mode-common-hook)
 
-    ;;(ac-set-trigger-key "TAB")
-    ;;(define-key ac-mode-map  [(control tab)] 'auto-complete)
-    ;;(define-key ac-mode-map  [(control tab)] 'auto-complete)
+(defun ac-lisp-mode-setup()
+  (setq ac-sources (append '(ac-source-features ac-source-functions ac-source-yasnippet ac-source-variables ac-source-symbols) ac-sources)))
 
 (defun my-ac-config ()
-      (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
-      (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
-      ;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-      (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
-      (add-hook 'css-mode-hook 'ac-css-mode-setup)
-      (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-      (global-auto-complete-mode t))
+  (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
+  (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
+  ;; (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
+  (add-hook 'lisp-mode-hook 'ac-lisp-mode-setup)
+  (add-hook 'css-mode-hook 'ac-css-mode-setup)
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+  (global-auto-complete-mode t))
 (defun my-ac-cc-mode-setup ()
-      (setq ac-sources (append '(ac-source-clang ac-source-yasnippet) ac-sources)))
+  (setq ac-sources (append '(ac-source-clang ac-source-functions ac-source-yasnippet ac-source-variables) ac-sources)))
 (add-hook 'c-mode-common-hook 'my-ac-cc-mode-setup)
-    ;; ac-source-gtags
+(add-hook 'c++-mode-hook 'my-ac-cc-mode-setup)
+;; ac-source-gtags
 (my-ac-config)
 (require 'auto-complete)
 (require 'auto-complete-config)
@@ -407,19 +409,18 @@ p									(access-label after)))
 (require 'cursor-change)
 (cursor-change-mode 't)
 
-
 ;;;; One key Compiler, Shell open, Kill buffer
 (defun onekey-compile ()
-   "Compile current buffer"
-   (interactive)
-   (let (filename suffix progname compiler)
-     (setq filename (file-name-nondirectory buffer-file-name))
-     (setq progname (file-name-sans-extension filename))
-     (setq suffix (file-name-extension filename))
-     (if (string= suffix "c") (setq compiler (concat "gcc -Wall -g -o " progname " ")))
-     (if (or (string= suffix "cc") (string= suffix "cpp")) (setq compiler (concat "g++ -Wall -g -o " progname " ")))
-     (if (string= suffix "tex") (setq compiler "latex "))
-     (compile (concat compiler filename " -lm"))))
+  "Compile current buffer"
+  (interactive)
+  (let (filename suffix progname compiler)
+    (setq filename (file-name-nondirectory buffer-file-name))
+    (setq progname (file-name-sans-extension filename))
+    (setq suffix (file-name-extension filename))
+    (if (string= suffix "c") (setq compiler (concat "gcc -Wall -g -o " progname " ")))
+    (if (or (string= suffix "cc") (string= suffix "cpp")) (setq compiler (concat "g++ -Wall -g -o " progname " ")))
+    (if (string= suffix "tex") (setq compiler "latex "))
+    (compile (concat compiler filename " -lm"))))
 
 (defun mykillbuffer ()
   (interactive)
@@ -528,7 +529,7 @@ p									(access-label after)))
                           description
                           blank
                           ))
-                          
+
 (setq header-update-on-save '(filename
                               modified
                               counter
@@ -539,17 +540,17 @@ p									(access-label after)))
 
 ;;;; make script executable after saved
 (add-hook 'after-save-hook
-        #'(lambda ()
-        (and (save-excursion
-               (save-restriction
-                 (widen)
-                 (goto-char (point-min))
-                 (save-match-data
-                   (looking-at "^#!"))))
-             (not (file-executable-p buffer-file-name))
-             (shell-command (concat "chmod u+x " buffer-file-name))
-             (message
-              (concat "Saved as script: " buffer-file-name)))))
+          #'(lambda ()
+              (and (save-excursion
+                     (save-restriction
+                       (widen)
+                       (goto-char (point-min))
+                       (save-match-data
+                         (looking-at "^#!"))))
+                   (not (file-executable-p buffer-file-name))
+                   (shell-command (concat "chmod u+x " buffer-file-name))
+                   (message
+                    (concat "Saved as script: " buffer-file-name)))))
 
 ;;;; emacs weibo
 ;;(add-to-list 'load-path "~/.emacs.d/plugins/weibo.emacs/")
@@ -560,12 +561,12 @@ p									(access-label after)))
 (require 'tramp)
 
 ;;;; Config for Emacs Client with stumpWM
-  (add-hook 'after-init-hook 'server-start)
-  (setq server-raise-frame t)
+(add-hook 'after-init-hook 'server-start)
+(setq server-raise-frame t)
 
-  (if window-system
-      (add-hook 'server-done-hook
-                (lambda () (shell-command "stumpish 'eval (stumpwm::return-es-called-win stumpwm::*es-win*)'"))))
+(if window-system
+    (add-hook 'server-done-hook
+              (lambda () (shell-command "stumpish 'eval (stumpwm::return-es-called-win stumpwm::*es-win*)'"))))
 
 
 ;;;; lisp-mode
@@ -576,6 +577,10 @@ p									(access-label after)))
 (slime-setup '(slime-fancy))
 (add-hook 'lisp-mode-hook (lambda () (auto-complete-mode t)))
 (define-key global-map (kbd "<f2>") 'slime)
+(add-hook 'lisp-mode-hook
+          (lambda ()
+            (unless (slime-connected-p)
+              (save-excursion (slime)))))
 
 
 (defun my-replace-regexp (replacedstring replacestring)
@@ -671,7 +676,7 @@ p									(access-label after)))
   (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
   (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
   (if (featurep 'js2-highlight-vars)
-    (js2-highlight-vars-mode))
+      (js2-highlight-vars-mode))
   (message "My JS2 hook"))
 
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
@@ -689,25 +694,26 @@ p									(access-label after)))
  '(erc-play-sound t)
  '(erc-server "irc.freenode.net")
  '(erc-sound-mode t)
- '(erc-user-full-name "lpy"))
+ '(erc-user-full-name "lpy")
+ '(scroll-bar-mode nil))
 
 (setq erc-colors-list '("green" "red"
-			"dark gray" "dark orange"
-			"dark magenta" "maroon"
-			"indian red"  "forest green"
-			"midnight blue" "dark violet"))
+                        "dark gray" "dark orange"
+                        "dark magenta" "maroon"
+                        "indian red"  "forest green"
+                        "midnight blue" "dark violet"))
 
 (setq erc-nick-color-alist '(("John" . "blue")
-			     ("Bob" . "red")
-			     ))
+                             ("Bob" . "red")
+                             ))
 
 (defun erc-get-color-for-nick (nick)
   "Gets a color for NICK. If NICK is in erc-nick-color-alist, use that color, else hash the nick and use a random color from the pool"
   (or (cdr (assoc nick erc-nick-color-alist))
       (nth
        (mod (string-to-number
-	     (substring (md5 (downcase nick)) 0 6) 16)
-	    (length erc-colors-list))
+             (substring (md5 (downcase nick)) 0 6) 16)
+            (length erc-colors-list))
        erc-colors-list)))
 
 (defun erc-put-color-on-nick ()
@@ -715,10 +721,10 @@ p									(access-label after)))
   (save-excursion
     (goto-char (point-min))
     (if (looking-at "<\\([^>]*\\)>")
-	(let ((nick (match-string 1)))
-	  (put-text-property (match-beginning 1) (match-end 1) 'face
-			     (cons 'foreground-color
-				   (erc-get-color-for-nick nick)))))))
+        (let ((nick (match-string 1)))
+          (put-text-property (match-beginning 1) (match-end 1) 'face
+                             (cons 'foreground-color
+                                   (erc-get-color-for-nick nick)))))))
 
 (add-hook 'erc-insert-modify-hook 'erc-put-color-on-nick)
 (global-set-key (kbd "<f6>") 'erc)
