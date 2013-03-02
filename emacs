@@ -13,12 +13,15 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/auto-complete-clang")
 (add-to-list 'load-path "~/.emacs.d/plugins/program_mode/perl-mode/Emacs-PDE/lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/autopair")
+(add-to-list 'load-path "~/.emacs.d/plugins/powerline")
+(add-to-list 'load-path "~/.emacs.d/plugins/program_mode/latex-mode")
+(add-to-list 'load-path "~/.emacs.d/plugins/program_mode/latex-mode/auctex")
 
 ;;;;color-theme && high-light
 (require 'color-theme)
-(color-theme-initialize)
-(color-theme-comidia)
-(setq color-theme-is-global t)
+;;(color-theme-initialize)
+;;(color-theme-comidia)
+;;(setq color-theme-is-global t)
 (global-font-lock-mode t)
 ;;(require 'hl-line)
 ;;(global-hl-line-mode t)
@@ -51,7 +54,7 @@
 ;;;;用一个很大的kill ring
 (setq kill-ring-max 250)
 ;;;;默认字体
-(set-default-font "Monaco-11")
+;;(set-default-font "Monaco-11")
 ;;;;关闭启动时的开机画面
 (setq inhibit-startup-message t)
 ;;;;启动窗口大小
@@ -688,14 +691,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(display-time-mode t)
  '(erc-autojoin-channels-alist (quote (("freenode.net" "#ubuntu-cn"))))
+ '(erc-sound-mode t)
+ '(erc-play-sound t)
  '(erc-away-nickname "lpy_away")
  '(erc-nick "lpy")
- '(erc-play-sound t)
  '(erc-server "irc.freenode.net")
- '(erc-sound-mode t)
  '(erc-user-full-name "lpy")
- '(scroll-bar-mode nil))
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t))
 
 (setq erc-colors-list '("green" "red"
                         "dark gray" "dark orange"
@@ -740,6 +746,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "Black" :foreground "SteelBlue" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "unknown" :family "monofur"))))
  '(rainbow-delimiters-depth-1-face ((t (:foreground "green"))))
  '(rainbow-delimiters-depth-2-face ((t (:foreground "gold"))))
  '(rainbow-delimiters-depth-3-face ((t (:foreground "deep sky blue"))))
@@ -770,3 +777,44 @@
 (defun insert-usaco-header ()
   (interactive)
   (insert (format "/*\nID: pylaure1\nPROG: %s\nLANG: C++\n*/\n" (file-name-sans-extension (file-name-nondirectory buffer-file-name)))))
+
+;;;;emacs package manager
+(require 'package)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.ort/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+(require 'powerline-autoloads)
+(powerline-default-theme)
+
+
+;;;;Latex-mode
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+
+(require 'auctex-autoloads)
+(require 'tex-mik)
+(setq TeX-engine 'xetex)
+(setq Tex-auto-save t)
+(setq Tex-parse-self t)
+(setq-default Text-master nil)
+(setq TeX-view-program-list
+      '(("Evince" "evince %o")
+        ("Firefox" "firefox %o")))
+(mapc (lambda (mode)
+        (add-hook 'LaTeX-mode-hook mode))
+      (list 'visual-line-mode
+            'flyspell-mode
+            'LaTeX-math-mode
+            'turn-on-reftex))
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (setq TeX-view-program-selection '((output-pdf "Firefox")
+                                               (output-dvi "Evince")))))
+(setq reftex-plug-into-AUCTeX t)
+(setq TeX-PDF-mode t)
+(add-hook 'LaTeX-mode-hook (lambda()
+    (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+    (setq TeX-command-default "XeLaTeX")
+    (setq TeX-save-query  nil )
+    (setq TeX-show-compilation t)))
